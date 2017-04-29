@@ -17,8 +17,7 @@ orient=12 , pix_per_cell=8, cel_per_block=2, color_space=YCrCb.
 All parameters have been determined by an iterative approach. 
 To gain more Information for identification tasks features from spatial binning and color histograms have been extracted. Before feeding our classifier with the extracted features we normalize all features and shuffle the data. (Codeblock 11).
 The results are presented in figure 1:
-### image in here
----
+![HOG Feature Extraction](text/HOG extraction.PNG?raw=true)---
 ## Sliding Window
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
 This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. 
