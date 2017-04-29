@@ -1,33 +1,44 @@
 # Vehicle Detection
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
-
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You can submit your writeup in markdown or use another method and submit a pdf instead.
+.
 
 The Project
 ---
 
-The goals / steps of this project are the following:
+## Data Exploration
+---
+I used images from the GTI and KITTI Dataset. The resulting Dataset is not balanced. So I downsampled the number of noncar-images to the number of car images. Also I deleted in the GTI-Dataset several images of cars which had more than 4 images.
 
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
 
-Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples to train your classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.   You are welcome and encouraged to take advantage of the recently released [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations) to augment your training data.  
 
-Some example images for testing your pipeline on single frames are located in the `test_images` folder.  To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `ouput_images`, and include them in your writeup for the project by describing what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
+## HOG-Feature Extraction
+---
+The HOG parameters have been extracted by "ALL"-HOG channels. The parameters have been set to:
+orient=12 , pix_per_cell=8, cel_per_block=2, color_space=YCrCb. 
+All parameters have been determined by an iterative approach. 
+To gain more Information for identification tasks features from spatial binning and color histograms have been extracted. Before feeding our classifier with the extracted features we normalize all features and shuffle the data. (Codeblock 11).
+The results are presented in figure 1:
+### image in here
+---
+## Sliding Window
+To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
+This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. The result is presented in figure 2:
 
-**As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
+* Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
 
-**If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
+
+
+To optimize my classifiers performance I used the heatmap-technique. Heatmaps are arrays which are fed with binary classification results of our trained classifier. If the classifier detects a car we store it's window position inside our heatmap. If we don't classify an object,  we don't store a window position inside our heatmap. 
+
+To improve the detection rate of our pipeline we have to create a high accuracy neighbourhood based on overlapping windows. The more overlapping windows / areas we have, the more accurate the classification is. This is implemented to avoid to draw false positives in our video. To realize this neighbourhood we store all detections of the last 10 frames in a "deque". In the following step we calculate the sum of, feed it to our heatmap and threshold it. The tresholdvalue is 6.
+A detection will be drawn if our classifier detects at least 6 overlapping windows. 
+
+We do this to remove the number of false positives -> Inside an image detected spots are classified as a car, which is not a car.
+
+
+
+### Discussion
+---
+* Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
+The classification task by the use of SVM has high computational cost and its hard to use it for real-time classification. The HOG-feature extraction is unefficient. In the next step I'm going to implement a more cost effective approach by only extract the Hog features once and evaluate them for every window. This should reduce the computational cost. Anoter approach is to implement a DNN to detect cars.
+
+This pipeline will fail if we drive on the right or middle lane of the track. For this video I just scan the lower right triangular part of the image to reduce the computational cost.
