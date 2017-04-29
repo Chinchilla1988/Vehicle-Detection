@@ -17,6 +17,7 @@ orient=12 , pix_per_cell=8, cel_per_block=2, color_space=YCrCb.
 All parameters have been determined by an iterative approach. 
 To gain more Information for identification tasks features from spatial binning and color histograms have been extracted. Before feeding our classifier with the extracted features we normalize all features and shuffle the data. (Codeblock 11).
 The results are presented in figure 1:
+
 ![HOG Feature Extraction](text/hogextraction1.png?raw=true)---
 ![HOG Feature Extraction](text/hogextraction2.png?raw=true)---
 ![HOG Feature Extraction](text/hogextraction3.png?raw=true)---
