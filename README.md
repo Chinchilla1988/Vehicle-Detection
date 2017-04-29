@@ -3,7 +3,7 @@
 
 The Project
 ---
-
+Youtube Video: https://youtu.be/jwMzItu6ws4
 ## Data Exploration
 ---
 I used images from the GTI and KITTI Dataset. The resulting Dataset is not balanced. So I downsampled the number of noncar-images to the number of car images. Also I deleted in the GTI-Dataset several images of cars which had more than 4 images.
