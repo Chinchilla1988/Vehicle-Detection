@@ -23,24 +23,24 @@ The results are presented in figure 1:
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
 This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. 
 The result is presented in figure 2:
-![Pipeline1](text/Download (1).PNG?raw=true)---
-![Pipeline2](text/Download.PNG?raw=true)---
-![Pipeline3](text/Download (2).PNG?raw=true)---
-![Pipeline4](text/Download (3).PNG?raw=true)---
-![Pipeline5](text/Download (4).PNG?raw=true)---
-![Pipeline6](text/Download (5).PNG?raw=true)---
+![Pipeline1](text/Download (1).png?raw=true)---
+![Pipeline2](text/Download.png?raw=true)---
+![Pipeline3](text/Download (2).png?raw=true)---
+![Pipeline4](text/Download (3).png?raw=true)---
+![Pipeline5](text/Download (4).png?raw=true)---
+![Pipeline6](text/Download (5).png?raw=true)---
 
 
 To optimize my classifiers performance I used the heatmap-technique. Heatmaps are arrays which are fed with binary classification results of our trained classifier. If the classifier detects a car we store it's window position inside our heatmap. If we don't classify an object,  we don't store a window position inside our heatmap. 
 
 To improve the detection rate of our pipeline we have to create a high accuracy neighbourhood based on overlapping windows. The more overlapping windows / areas we have, the more accurate the classification is. This is implemented to avoid to draw false positives in our video. To realize this neighbourhood we store all detections of the last 10 frames in a "deque". In the following step we calculate the sum of, feed it to our heatmap and threshold it. The tresholdvalue is 6.
 A detection will be drawn if our classifier detects at least 6 overlapping windows. 
-![heat1](text/heat1.PNG?raw=true)---
-![heat2](text/heat2.PNG?raw=true)---
-![heat3](text/heat3.PNG?raw=true)---
-![heat4](text/heat4.PNG?raw=true)---
-![heat5](text/heat5.PNG?raw=true)---
-![heat6](text/heat6.PNG?raw=true)---
+![heat1](text/heat1.png?raw=true)---
+![heat2](text/heat2.png?raw=true)---
+![heat3](text/heat3.png?raw=true)---
+![heat4](text/heat4.png?raw=true)---
+![heat5](text/heat5.png?raw=true)---
+![heat6](text/heat6.png?raw=true)---
 
 We do this to remove the number of false positives -> Inside an image detected spots are classified as a car, which is not a car.
 
