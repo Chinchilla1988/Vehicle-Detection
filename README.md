@@ -23,12 +23,12 @@ The results are presented in figure 1:
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
 This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. 
 The result is presented in figure 2:
-![Pipeline1](text/Download (1).png?raw=true)---
+![Pipeline1](text/Download1.png?raw=true)---
 ![Pipeline2](text/Download.png?raw=true)---
-![Pipeline3](text/Download (2).png?raw=true)---
-![Pipeline4](text/Download (3).png?raw=true)---
-![Pipeline5](text/Download (4).png?raw=true)---
-![Pipeline6](text/Download (5).png?raw=true)---
+![Pipeline3](text/Download2.png?raw=true)---
+![Pipeline4](text/Download3.png?raw=true)---
+![Pipeline5](text/Download4.png?raw=true)---
+![Pipeline6](text/Download5.png?raw=true)---
 
 
 To optimize my classifiers performance I used the heatmap-technique. Heatmaps are arrays which are fed with binary classification results of our trained classifier. If the classifier detects a car we store it's window position inside our heatmap. If we don't classify an object,  we don't store a window position inside our heatmap. 
