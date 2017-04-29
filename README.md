@@ -1,5 +1,5 @@
 # Vehicle Detection
-.
+
 
 The Project
 ---
@@ -21,9 +21,8 @@ The results are presented in figure 1:
 ---
 ## Sliding Window
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
-This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. The result is presented in figure 2:
-
-* Show some examples of test images to demonstrate how your pipeline is working. How did you optimize the performance of your classifier?
+This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. 
+The result is presented in figure 2:
 
 
 
@@ -38,7 +37,6 @@ We do this to remove the number of false positives -> Inside an image detected s
 
 ### Discussion
 ---
-* Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 The classification task by the use of SVM has high computational cost and its hard to use it for real-time classification. The HOG-feature extraction is unefficient. In the next step I'm going to implement a more cost effective approach by only extract the Hog features once and evaluate them for every window. This should reduce the computational cost. Anoter approach is to implement a DNN to detect cars.
 
 This pipeline will fail if we drive on the right or middle lane of the track. For this video I just scan the lower right triangular part of the image to reduce the computational cost.
