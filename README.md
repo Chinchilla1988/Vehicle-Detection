@@ -18,6 +18,7 @@ All parameters have been determined by an iterative approach.
 To gain more Information for identification tasks features from spatial binning and color histograms have been extracted. Before feeding our classifier with the extracted features we normalize all features and shuffle the data. (Codeblock 11).
 The results are presented in figure 1:
 ![HOG Feature Extraction](text/HOG extraction.PNG?raw=true)---
+
 ## Sliding Window
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
 This approach is computationally expensive because we slide through all images. To reduce computing time we slide through a given region for different scales. 
@@ -34,6 +35,12 @@ To optimize my classifiers performance I used the heatmap-technique. Heatmaps ar
 
 To improve the detection rate of our pipeline we have to create a high accuracy neighbourhood based on overlapping windows. The more overlapping windows / areas we have, the more accurate the classification is. This is implemented to avoid to draw false positives in our video. To realize this neighbourhood we store all detections of the last 10 frames in a "deque". In the following step we calculate the sum of, feed it to our heatmap and threshold it. The tresholdvalue is 6.
 A detection will be drawn if our classifier detects at least 6 overlapping windows. 
+![heat1](text/heat1.PNG?raw=true)---
+![heat2](text/heat2.PNG?raw=true)---
+![heat3](text/heat3.PNG?raw=true)---
+![heat4](text/heat4.PNG?raw=true)---
+![heat5](text/heat5.PNG?raw=true)---
+![heat6](text/heat6.PNG?raw=true)---
 
 We do this to remove the number of false positives -> Inside an image detected spots are classified as a car, which is not a car.
 
