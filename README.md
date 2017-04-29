@@ -18,6 +18,8 @@ All parameters have been determined by an iterative approach.
 To gain more Information for identification tasks features from spatial binning and color histograms have been extracted. Before feeding our classifier with the extracted features we normalize all features and shuffle the data. (Codeblock 11).
 The results are presented in figure 1:
 ![HOG Feature Extraction](text/hogextraction1.png?raw=true)---
+![HOG Feature Extraction](text/hogextraction2.png?raw=true)---
+![HOG Feature Extraction](text/hogextraction3.png?raw=true)---
 
 ## Sliding Window
 To detect cars in an image we use the sliding window technique. The sliding window extracts all features inside it's window and feed it to the classifier for prediction tasks. If the classifier detects a car we store the actual windowposition inside a vector. 
